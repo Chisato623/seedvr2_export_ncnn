@@ -435,7 +435,9 @@ def export_model(
         str(traced_path),
         "inputshape=" + str(list(example.shape)).replace(" ", ""),
         "moduleop=DecomposedConv3d,ExportUpsample3D,ExportDownsample3D",
-        "fp16=1",
+        # Keep exported VAE weights in FP32.  Runtime storage precision is
+        # selected independently by NCNN options.
+        "fp16=0",
     ]
     if secondary_example is not None:
         command.append(
